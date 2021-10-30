@@ -7,13 +7,13 @@ const MyOrder = ({ order }) => {
     const [confirmOrder, setConfirmOrder] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/orders')
+        fetch('https://rocky-brushlands-45454.herokuapp.com/orders')
             .then(res => res.json())
             .then(data => setConfirmOrder(data))
     }, [])
 
     const handleCancelBooking = (id) => {
-        fetch(`http://localhost:5000/Orders/${id}`, {
+        fetch(`https://rocky-brushlands-45454.herokuapp.com/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())

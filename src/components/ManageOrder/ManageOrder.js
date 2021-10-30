@@ -5,7 +5,7 @@ const ManageOrder = ({ order }) => {
     console.log(order)
 
     const approve = id => {
-        const uri = `http://localhost:5000/orders/${id}`;
+        const uri = `https://rocky-brushlands-45454.herokuapp.com/${id}`;
         order = { status: "approved" }
 
         fetch(uri, {
@@ -25,7 +25,7 @@ const ManageOrder = ({ order }) => {
     }
 
     const handleDelete = id => {
-        const uri = `http://localhost:5000/orders/${id}`;
+        const uri = `https://rocky-brushlands-45454.herokuapp.com/${id}`;
         fetch(uri, {
             method: "DELETE"
         })

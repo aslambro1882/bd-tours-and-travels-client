@@ -23,7 +23,7 @@ const PlaceOrder = () => {
     console.log(bookOrder);
     // const { _id, country, img, place, rate, duration } = bookOrder;
     useEffect(() => {
-        const uri = `http://localhost:5000/destination/${id}`;
+        const uri = `https://rocky-brushlands-45454.herokuapp.com/${id}`;
         fetch(uri)
             .then(res => res.json())
             .then(data => setbookOrder(data))
@@ -44,7 +44,7 @@ const PlaceOrder = () => {
         const bookedInfo = { name, address, city, state, zip, country, place, rate, duration, status }
         console.log(bookedInfo);
 
-        const uri = `http://localhost:5000/orders/${id}`;
+        const uri = `https://rocky-brushlands-45454.herokuapp.com/${id}`;
         fetch(uri, {
             method: "POST",
             headers: {

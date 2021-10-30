@@ -6,7 +6,7 @@ const AddNewOffer = () => {
     const { register, handleSubmit } = useForm();
     const onSubmit = data => {
         console.log(data);
-        fetch('http://localhost:5000/destination', {
+        fetch('https://rocky-brushlands-45454.herokuapp.com/destination', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
