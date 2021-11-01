@@ -2,9 +2,19 @@ import React from 'react';
 import { Container, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import { useHistory } from 'react-router';
 
 const Header = () => {
+
     const { user, handleLogout } = useAuth();
+
+    const history = useHistory();
+    const redirect_uri = '/home';
+    const logout = () => {
+        handleLogout();
+        history.push(redirect_uri);
+
+    }
     return (
         <div>
             <Navbar bg="light" expand="lg" sticky="top" className="shadow">
@@ -22,7 +32,7 @@ const Header = () => {
                                     <NavDropdown.Item as={Link} to="/myorders">My Order</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="/manageorders">Manage All Orders</NavDropdown.Item>
                                     <NavDropdown.Item as={Link} to="/addnewoffer">Add a new service</NavDropdown.Item>
-                                    <NavDropdown.Item onClick={handleLogout}>Logout</NavDropdown.Item>
+                                    <NavDropdown.Item onClick={logout}>Logout</NavDropdown.Item>
                                 </NavDropdown>}
                         </Nav>
                     </Navbar.Collapse>

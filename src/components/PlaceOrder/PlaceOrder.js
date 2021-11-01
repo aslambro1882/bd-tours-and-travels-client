@@ -44,7 +44,7 @@ const PlaceOrder = () => {
         const bookedInfo = { name, address, city, state, zip, country, place, rate, duration, status }
         console.log(bookedInfo);
 
-        const uri = `https://rocky-brushlands-45454.herokuapp.com/orders${id}`;
+        const uri = `https://rocky-brushlands-45454.herokuapp.com/orders/${id}`;
         fetch(uri, {
             method: "POST",
             headers: {
