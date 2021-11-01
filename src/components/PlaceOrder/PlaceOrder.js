@@ -5,19 +5,8 @@ import { useParams } from 'react-router';
 import useAuth from '../hooks/useAuth';
 
 const PlaceOrder = () => {
-    const { user } = useAuth();
-    const [name, setName] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [zip, setZip] = useState('');
-    const [country, setCountry] = useState('');
-    const [place, setPlace] = useState('');
-    const [rate, setRate] = useState('');
-    const [duration, setDuration] = useState('');
-    const [status, setStatus] = useState('Pending');
-    console.log(name);
-    console.log(user)
+    const { register, reset, handleSubmit } = useForm();
+
     const { id } = useParams();
     const [bookOrder, setbookOrder] = useState({});
     console.log(bookOrder);
@@ -26,31 +15,29 @@ const PlaceOrder = () => {
         const uri = `https://rocky-brushlands-45454.herokuapp.com/destination/${id}`;
         fetch(uri)
             .then(res => res.json())
-            .then(data => setbookOrder(data))
-    }, []);
+            .then(data => {
+                setbookOrder(data);
 
-    const { register, handleSubmit } = useForm();
+            })
+    }, [id]);
+
+
     const onSubmit = data => {
+        data.country = bookOrder.country;
+        data.place = bookOrder.place;
+        data.rate = bookOrder.rate;
+        data.duration = bookOrder.duration;
+        data.status = 'pending';
         console.log(data);
-        setName(data.name);
-        setAddress(data.address);
-        setCity(data.city);
-        setState(data.state);
-        setZip(data.zip);
-        setCountry(bookOrder?.country);
-        setPlace(bookOrder?.place);
-        setRate(bookOrder?.rate);
-        setDuration(bookOrder?.duration);
-        const bookedInfo = { name, address, city, state, zip, country, place, rate, duration, status }
-        console.log(bookedInfo);
 
         const uri = `https://rocky-brushlands-45454.herokuapp.com/orders/${id}`;
+        console.log(uri);
         fetch(uri, {
             method: "POST",
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify(bookedInfo)
+            body: JSON.stringify(data)
         })
             .then(res => res.json())
             .then(data => {
@@ -72,44 +59,40 @@ const PlaceOrder = () => {
                 <Row className="shadow p-2">
                     <Col className=" mx-auto text-start form-width p-5">
                         <h2>Shipping Address</h2>
-                        <Form onSubmit={handleSubmit(onSubmit)}>
-                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                <Form.Label>Name</Form.Label>
-                                <Form.Control {...register("name")} type="text" placeholder="Enter Your Name" />
-                            </Form.Group>
-                            <Form.Group className="mb-3" controlId="formGridAddress1">
-                                <Form.Label>Address</Form.Label>
-                                <Form.Control {...register("address")} type="text" placeholder="1234 Main St" />
-                            </Form.Group>
+                        <form onSubmit={handleSubmit(onSubmit)}>
+                            <div className="mb3">
+                                <label className="form-label">Name</label>
+                                <input className="form-control" {...register("name")} type="text" placeholder="Enter Your Name" />
+                            </div>
+
+                            <div className="mb3">
+                                <label className="form-label">Address</label>
+                                <input className="form-control" {...register("address")} type="text" placeholder="1234 Main St" />
+                            </div>
                             <Row className="mb-3">
+                                <Col>
+                                    <div>
+                                        <label className="form-label">City</label>
+                                        <input className="form-control" {...register("city")} type="text" placeholder="1234 Main St" />
+                                    </div>
+                                </Col>
+                                <Col>
+                                    <div>
+                                        <label className="form-label">State</label>
+                                        <input className="form-control" {...register("state")} type="text" placeholder="1234 Main St" />
+                                    </div>
+                                </Col>
+                                <Col>
+                                    <div>
+                                        <label className="form-label">ZIP</label>
+                                        <input className="form-control" {...register("zip")} type="text" placeholder="1234 Main St" />
+                                    </div>
+                                </Col>
 
-                                <Form.Group as={Col} controlId="formGridState">
-                                    <Form.Label>City</Form.Label>
-                                    <Form.Select {...register("city")} defaultValue="Choose...">
-                                        <option>Choose...</option>
-                                        <option>Chittagong</option>
-                                        <option>Dhaka</option>
-                                        <option>Dhaka</option>
-                                        <option>Dhaka</option>
-                                    </Form.Select>
-                                </Form.Group>
-
-                                <Form.Group as={Col} controlId="formGridCity">
-                                    <Form.Label>State</Form.Label>
-                                    <Form.Control {...register("state")} />
-                                </Form.Group>
-
-
-                                <Form.Group as={Col} controlId="formGridZip">
-                                    <Form.Label>Zip</Form.Label>
-                                    <Form.Control {...register("zip")} />
-                                </Form.Group>
                             </Row>
 
-                            <Button variant="primary" type="submit">
-                                Submit
-                            </Button>
-                        </Form>
+                            <button type="submit" className="btn btn-primary">Submit</button>
+                        </form>
                     </Col>
                     <Col className="d-flex justify-content-center align-items-center">
                         <div>
