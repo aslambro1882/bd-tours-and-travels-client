@@ -11,6 +11,7 @@ import ManageOrders from './components/ManageOrders/ManageOrders';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 import Footer from './components/Footer/Footer';
 
+
 function App() {
   return (
     <div className="App">
@@ -38,6 +39,9 @@ function App() {
             </Route>
             <Route path="/manageorders">
               <ManageOrders></ManageOrders>
+            </Route>
+            <Route path="*">
+
             </Route>
           </Switch>
           <Footer></Footer>

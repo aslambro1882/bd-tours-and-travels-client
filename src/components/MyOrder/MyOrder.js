@@ -13,7 +13,7 @@ const MyOrder = ({ order }) => {
     }, [])
 
     const handleCancelBooking = (id) => {
-        fetch(`https://rocky-brushlands-45454.herokuapp.com/${id}`, {
+        fetch(`https://rocky-brushlands-45454.herokuapp.com/orders/${id}`, {
             method: 'DELETE'
         })
             .then(res => res.json())
